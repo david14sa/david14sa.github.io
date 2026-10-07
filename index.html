@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Portafolio de Fotografía</title>
+  <title>Mi Portafolio de Fotografía & Tienda</title>
   <style>
     /* Estilos generales */
     * {
@@ -82,10 +82,12 @@
       overflow: hidden;
       border-radius: 8px;
       background-color: #1e1e1e;
+      display: flex;
+      flex-direction: column;
     }
     .gallery-item img {
       width: 100%;
-      height: 250px;
+      height: 220px;
       object-fit: cover;
       display: block;
       transition: transform 0.4s ease;
@@ -93,8 +95,129 @@
     .gallery-item:hover img {
       transform: scale(1.05);
     }
+    .item-info {
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #1a1a1a;
+    }
+    .item-price {
+      font-weight: bold;
+      color: #4caf50;
+      font-size: 1.1rem;
+    }
+    .buy-btn {
+      padding: 0.5rem 1rem;
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #555;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .buy-btn:hover {
+      background-color: #fff;
+      color: #000;
+    }
 
-    /* Acerca de */
+    /* Seccion TPV / Pasarela de Pago */
+    .tpv-section {
+      background-color: #181818;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 4rem auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .tpv-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .tpv-header h3 {
+      font-size: 1.3rem;
+      color: #fff;
+    }
+    .card-icons span {
+      font-size: 0.8rem;
+      background: #333;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      margin-left: 0.3rem;
+    }
+    .order-summary {
+      background-color: #222;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+    }
+    .order-summary div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    .order-summary div:last-child {
+      margin-bottom: 0;
+      font-weight: bold;
+      border-top: 1px solid #333;
+      padding-top: 0.5rem;
+      color: #fff;
+    }
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 0.4rem;
+      color: #aaa;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 0.8rem;
+      background-color: #252525;
+      border: 1px solid #3d3d3d;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 1rem;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: #fff;
+    }
+    .form-row {
+      display: flex;
+      gap: 1rem;
+    }
+    .pay-button {
+      width: 100%;
+      padding: 1rem;
+      background-color: #2e7d32;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 1rem;
+    }
+    .pay-button:hover {
+      background-color: #388e3c;
+    }
+    .secure-notice {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #777;
+      margin-top: 1rem;
+    }
+
+    /* Sobre mí y Footer */
     .about {
       background-color: #1a1a1a;
       padding: 3rem 1rem;
@@ -105,28 +228,12 @@
       margin: 0 auto;
       color: #bbb;
     }
-
-    /* Contacto y Pie de página */
     footer {
       text-align: center;
       padding: 2rem;
       background-color: #101010;
       color: #777;
       font-size: 0.9rem;
-    }
-    .contact-btn {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.75rem 1.5rem;
-      background-color: #fff;
-      color: #000;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: bold;
-      transition: background-color 0.3s;
-    }
-    .contact-btn:hover {
-      background-color: #ccc;
     }
   </style>
 </head>
@@ -137,34 +244,155 @@
     <div class="logo">FOTO // LENS</div>
     <nav>
       <a href="#galeria">Galería</a>
+      <a href="#tpv">Comprar / TPV</a>
       <a href="#sobre-mi">Sobre mí</a>
-      <a href="#contacto">Contacto</a>
     </nav>
   </header>
 
   <!-- Sección Principal / Hero -->
   <section class="hero">
     <h1>Capturando momentos únicos</h1>
-    <p>Fotografía de paisaje, retrato y estilo de vida</p>
+    <p>Adquiere impresiones de alta calidad o reserva sesiones fotográficas</p>
   </section>
 
-  <!-- Galería de Fotos -->
+  <!-- Galería de Fotos con Botones de Compra -->
   <main class="container" id="galeria">
-    <h2 class="section-title">Trabajos Recientes</h2>
+    <h2 class="section-title">Obras Disponibles</h2>
     <div class="gallery">
       <div class="gallery-item">
         <img src="https://picsum.photos/600/400?random=1" alt="Fotografía 1">
+        <div class="item-info">
+          <div>
+            <strong>Luz Atardecer</strong>
+            <div class="item-price">45 €</div>
+          </div>
+          <button class="buy-btn" onclick="selectItem('Luz Atardecer - Impresión Fine Art', 45)">Seleccionar</button>
+        </div>
       </div>
+
       <div class="gallery-item">
         <img src="https://picsum.photos/600/400?random=2" alt="Fotografía 2">
+        <div class="item-info">
+          <div>
+            <strong>Sombras de Ciudad</strong>
+            <div class="item-price">60 €</div>
+          </div>
+          <button class="buy-btn" onclick="selectItem('Sombras de Ciudad - Impresión Fine Art', 60)">Seleccionar</button>
+        </div>
       </div>
+
       <div class="gallery-item">
         <img src="https://picsum.photos/600/400?random=3" alt="Fotografía 3">
+        <div class="item-info">
+          <div>
+            <strong>Mar Salvaje</strong>
+            <div class="item-price">50 €</div>
+          </div>
+          <button class="buy-btn" onclick="selectItem('Mar Salvaje - Impresión Fine Art', 50)">Seleccionar</button>
+        </div>
       </div>
-      <div class="gallery-item">
-        <img src="https://picsum.photos/600/400?random=4" alt="Fotografía 4">
+    </div>
+
+    <!-- Sección del TPV / Pasarela de Pago Virtual -->
+    <section class="tpv-section" id="tpv">
+      <div class="tpv-header">
+        <h3>TPV Virtual / Pago Seguro</h3>
+        <div class="card-icons">
+          <span>VISA</span>
+          <span>MC</span>
+          <span>AMEX</span>
+        </div>
       </div>
-      <div class="gallery-item">
-        <img src="https://picsum.photos/600/400?random=5" alt="Fotografía 5">
+
+      <!-- Resumen del Pedido -->
+      <div class="order-summary">
+        <div>
+          <span>Concepto:</span>
+          <span id="summary-title">Selecciona una obra arriba</span>
+        </div>
+        <div>
+          <span>Total a pagar:</span>
+          <span id="summary-price">0.00 €</span>
+        </div>
       </div>
-      <div class="gallery-
+
+      <!-- Formulario de Pago TPV -->
+      <form id="payment-form" onsubmit="processPayment(event)">
+        <div class="form-group">
+          <label for="card-name">Nombre en la tarjeta</label>
+          <input type="text" id="card-name" placeholder="Ej. Juan Pérez" required>
+        </div>
+
+        <div class="form-group">
+          <label for="card-number">Número de tarjeta</label>
+          <input type="text" id="card-number" placeholder="1234 5678 9101 1121" maxlength="19" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group" style="flex: 2;">
+            <label for="card-exp">Caducidad (MM/AA)</label>
+            <input type="text" id="card-exp" placeholder="MM/AA" maxlength="5" required>
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label for="card-cvv">CVV</label>
+            <input type="password" id="card-cvv" placeholder="123" maxlength="4" required>
+          </div>
+        </div>
+
+        <button type="submit" class="pay-button" id="pay-btn">Pagar Ahora</button>
+        <p class="secure-notice">🔒 Transacción encriptada con tecnología SSL de 256 bits.</p>
+      </form>
+    </section>
+  </main>
+
+  <!-- Sobre mí -->
+  <section class="about" id="sobre-mi">
+    <h2 class="section-title">Sobre mí</h2>
+    <p>Hola, soy fotógrafo/a apasionado/a por buscar la belleza en la luz natural. Todas las copias son impresas en papel galardonado de alta calidad y firmadas a mano.</p>
+  </section>
+
+  <!-- Pie de página -->
+  <footer>
+    <p>&copy; 2026 Tu Nombre Fotografía. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Script interactivo del TPV -->
+  <script>
+    let currentPrice = 0;
+
+    function selectItem(title, price) {
+      document.getElementById('summary-title').innerText = title;
+      document.getElementById('summary-price').innerText = price.toFixed(2) + ' €';
+      currentPrice = price;
+
+      // Desplazarse suavemente al TPV
+      document.getElementById('tpv').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function processPayment(event) {
+      event.preventDefault();
+
+      if (currentPrice === 0) {
+        alert('Por favor, selecciona primero una obra o foto para comprar.');
+        return;
+      }
+
+      const btn = document.getElementById('pay-btn');
+      btn.innerText = 'Procesando pago...';
+      btn.disabled = true;
+
+      // Simulación de procesamiento con la pasarela bancaria TPV
+      setTimeout(() => {
+        alert('¡Pago realizado con éxito! Gracias por tu compra.');
+        btn.innerText = 'Pagar Ahora';
+        btn.disabled = false;
+        document.getElementById('payment-form').reset();
+        document.getElementById('summary-title').innerText = 'Selecciona una obra arriba';
+        document.getElementById('summary-price').innerText = '0.00 €';
+        currentPrice = 0;
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>
