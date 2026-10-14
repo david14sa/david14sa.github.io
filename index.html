@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Studio | Fotografía Profesional & Digital</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#facc15',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .smooth-scroll { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 smooth-scroll flex flex-col min-h-screen">
+
+    <!-- NAV BAR -->
+    <nav class="fixed top-0 left-0 w-full bg-zinc-950/80 backdrop-blur-md z-40 border-b border-zinc-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid me-2 fa-camera-retro text-gold-500 text-2xl"></i>
+                    <span class="font-bold text-xl tracking-wider uppercase text-zinc-100">Lumina<span class="text-gold-500">Studio</span></span>
+                </div>
+                <!-- Menú Desktop -->
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                    <a href="#inicio" class="hover:text-gold-500 transition-colors">Inicio</a>
+                    <a href="#portafolio" class="hover:text-gold-500 transition-colors">Portafolio</a>
+                    <a href="#servicios" class="hover:text-gold-500 transition-colors">Servicios</a>
+                    <a href="#sobre-mi" class="hover:text-gold-500 transition-colors">Sobre Mí</a>
+                    <a href="#contacto" class="bg-gold-500 hover:bg-gold-600 text-zinc-950 font-semibold px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105">Contacto</a>
+                </div>
+                <!-- Botón Menú Móvil -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-zinc-300 hover:text-white focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Menú Desplegable Móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-zinc-900 border-b border-zinc-800 px-4 pt-2 pb-4 space-y-3 text-center">
+            <a href="#inicio" class="block py-2 hover:text-gold-500 transition-colors mobile-link">Inicio</a>
+            <a href="#portafolio" class="block py-2 hover:text-gold-500 transition-colors mobile-link">Portafolio</a>
+            <a href="#servicios" class="block py-2 hover:text-gold-500 transition-colors mobile-link">Servicios</a>
+            <a href="#sobre-mi" class="block py-2 hover:text-gold-500 transition-colors mobile-link">Sobre Mí</a>
+            <a href="#contacto" class="block bg-gold-500 text-zinc-950 font-semibold py-2 rounded-full mobile-link">Contacto</a>
+        </div>
+    </nav>
+
+    <!-- SECCIÓN HERO / INICIO -->
+    <section id="inicio" class="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
+        <!-- Imagen de fondo con overlay -->
+        <div class="absolute inset-0 z-0">
+            <!-- REEMPLAZA ESTA URL CON LA RUTA DE TU FOTO EN GITHUB: eg. "images/hero-bg.jpg" -->
+            <img src=".fotos/dondyce.jpg">
+            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/60 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <span class="text-gold-500 font-medium tracking-widest uppercase text-sm mb-3 block">Estudio de Fotografía Profesional</span>
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-zinc-100 tracking-tight mb-6">Capturando momentos mágicos e inolvidables</h1>
+            <p class="text-lg sm:text-xl text-zinc-400 mb-8 max-w-2xl mx-auto font-light">Especializados en fotografía de eventos, retratos creativos, bodas singulares y paisajes naturales de alta definición.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#portafolio" class="bg-gold-500 hover:bg-gold-600 text-zinc-950 font-bold px-8 py-3.5 rounded-full shadow-lg transition-all transform hover:-translate-y-0.5">Ver Portafolio</a>
+                <a href="#contacto" class="border border-zinc-700 hover:border-gold-500 text-zinc-200 hover:text-gold-500 font-semibold px-8 py-3.5 rounded-full transition-all">Reserva una Sesión</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN PORTAFOLIO CON FILTROS -->
+    <section id="portafolio" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl sm:text-4xl font-bold text-zinc-100 mb-3">Galería de Trabajos</h2>
+            <div class="w-16 h-1 bg-gold-500 mx-auto rounded-full mb-6"></div>
+            <p class="text-zinc-400 max-w-xl mx-auto">Explora nuestras capturas divididas por especialidad. Haz clic en cualquier imagen para verla en pantalla completa.</p>
+            
+            <!-- Botones de Filtro -->
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mt-8">
+                <button class="filter-btn active bg-gold-500 text-zinc-950 px-5 py-2 rounded-full text-sm font-semibold transition-all" data-filter="all">Todos</button>
+                <button class="filter-btn bg-zinc-900 border border-zinc-800 text-zinc-300 hover:border-gold-500 px-5 py-2 rounded-full text-sm font-semibold transition-all" data-filter="bodas">Bodas</button>
+                <button class="filter-btn bg-zinc-900 border border-zinc-800 text-zinc-300 hover:border-gold-500 px-5 py-2 rounded-full text-sm font-semibold transition-all" data-filter="retratos">Retratos</button>
+                <button class="filter-btn bg-zinc-900 border border-zinc-800 text-zinc-300 hover:border-gold-500 px-5 py-2 rounded-full text-sm font-semibold transition-all" data-filter="naturaleza">Naturaleza</button>
+                <button class="filter-btn bg-zinc-900 border border-zinc-800 text-zinc-300 hover:border-gold-500 px-5 py-2 rounded-full text-sm font-semibold transition-all" data-filter="eventos">Eventos</button>
+            </div>
+        </div>
+
+        <!-- Grid de Galería -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid">
+            
+            <!-- ITEM 1: BODAS -->
+            <!-- Sustituye src con tu propia imagen: "images/bodas-1.jpg" -->
+            <div class="gallery-item bodas relative group overflow-hidden rounded-xl bg-zinc-900 cursor-pointer aspect-square" onclick="openModal('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80', 'Fotografía de Bodas')">
+                <img src="./fotos/Roscos.jpg">
+                <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <span class="text-gold-500 text-xs font-semibold uppercase tracking-wider">Bodas</span>
+                    <h3 class="text-white text-lg font-bold">Enlace Inolvidable</h3>
+                </div>
+            </div>
+
+            <!-- ITEM 2: RETRATOS -->
+            <div class="gallery-item retratos relative group overflow-hidden rounded-xl bg-zinc-900 cursor-pointer aspect-square" onclick="openModal('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80', 'Retrato Creativo')">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Retrato" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <span class="text-gold-500 text-xs font-semibold uppercase tracking-wider">Retratos</span>
+                    <h3 class="text-white text-lg font-bold">Expresión Urbana</h3>
+                </div>
+            </div>
+
+            <!-- ITEM 3: NATURALEZA -->
+            <div class="gallery-item naturaleza relative group overflow-hidden rounded-xl bg-zinc-900 cursor-pointer aspect-square" onclick="openModal('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80', 'Fotografía de Paisajes')">
+                <img src="./fotos/fryddysoloT.jpg">
+                <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <span class="text-gold-500 text-xs font-semibold uppercase tracking-wider">Naturaleza</span>
+                    <h3 class="text-white text-lg font-bold">Amanecer en la Montaña</h3>
+                </div>
+            </div>
+
+            <!-- ITEM 4: EVENTOS -->
+            <div class="gallery-item eventos relative group overflow-hidden rounded-xl bg-zinc-900 cursor-pointer aspect-square" onclick="openModal('https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80', 'Eventos Corporativos y Musicales')">
+                <img src="./fotos/dondyce.jpg">
+                <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <span class="text-gold-500 text-xs font-semibold uppercase tracking-wider">Eventos</span>
+                    <h3 class="text-white text-lg font-bold">Concierto en Vivo</h3>
+                </div>
+            </div>
+
+            <!-- ITEM 5: BODAS -->
+            <div class="gallery-item bodas relative group overflow-hidden rounded-xl bg-zinc-900 cursor-pointer aspect-square" onclick="openModal('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=80', 'Detalles de Boda')">
+                <img src="/fotos/Roscos.jpg">
+                <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <span class="text-gold-500 text-xs font-semibold uppercase tracking-wider">Bodas</span>
+                    <h3 class="text-white text-lg font-bold">Detalles de Ceremonia</h3>
+                </div>
+            </div>
+
+            <!-- ITEM 6: RETRATOS -->
+            <div class="gallery-item retratos relative group overflow-hidden rounded-xl bg-zinc-900 cursor-pointer aspect-square" onclick="openModal('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=80', 'Retrato Estudio')">
+                <img src="/fotos/fryddysoloT.jpg">
+                <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <span class="text-gold-500 text-xs font-semibold uppercase tracking-wider">Retratos</span>
+                    <h3 class="text-white text-lg font-bold">Sesión en Estudio</h3>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECCIÓN SERVICIOS Y TARIFAS -->
+    <section id="servicios" class="py-20 bg-zinc-900/50 border-y border-zinc-800/80 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-zinc-100 mb-3">Servicios & Tarifas</h2>
+                <div class="w-16 h-1 bg-gold-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-zinc-400 max-w-xl mx-auto">Paquetes adaptados a tus necesidades con la máxima calidad y entrega digital profesional.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Tarjeta Servicio 1 -->
+                <div class="bg-zinc-900 rounded-2xl p-8 border border-zinc-800 hover:border-gold-500/50 transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="text-gold-500 text-3xl mb-4"><i class="fa-solid fa-user font-bold"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-2">Sesión Retrato</h3>
+                        <p class="text-zinc-400 text-sm mb-6">Ideal para marcas personales, modelos o recuerdos individuales.</p>
+                        <div class="text-3xl font-extrabold text-white mb-6">150€ <span class="text-xs text-zinc-500 font-normal">/ sesión</span></div>
+                        <ul class="space-y-3 text-sm text-zinc-300 mb-8">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> 1.5 horas de sesión</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> 15 fotos editadas en alta res</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Galería privada online</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Asesoramiento de vestuario</li>
+                        </ul>
+                    </div>
+                    <a href="#contacto" class="w-full text-center py-3 bg-zinc-800 hover:bg-gold-500 hover:text-zinc-950 font-semibold rounded-xl transition-colors">Reservar</a>
+                </div>
+
+                <!-- Tarjeta Servicio 2 (Destacado) -->
+                <div class="bg-zinc-900 rounded-2xl p-8 border-2 border-gold-500 relative flex flex-col justify-between shadow-2xl transform md:-translate-y-2">
+                    <span class="absolute -top-3 right-6 bg-gold-500 text-zinc-950 font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">Más Popular</span>
+                    <div>
+                        <div class="text-gold-500 text-3xl mb-4"><i class="fa-solid fa-heart"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-2">Cobertura Bodas</h3>
+                        <p class="text-zinc-400 text-sm mb-6">Reportaje completo para inmortalizar el día más importante.</p>
+                        <div class="text-3xl font-extrabold text-white mb-6">850€ <span class="text-xs text-zinc-500 font-normal">/ evento</span></div>
+                        <ul class="space-y-3 text-sm text-zinc-300 mb-8">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Cobertura completa (día entero)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> +300 fotos editadas</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Álbum impreso de alta calidad</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Entrega en pendrive de madera</li>
+                        </ul>
+                    </div>
+                    <a href="#contacto" class="w-full text-center py-3 bg-gold-500 hover:bg-gold-600 text-zinc-950 font-bold rounded-xl transition-colors">Reservar Ahora</a>
+                </div>
+
+                <!-- Tarjeta Servicio 3 -->
+                <div class="bg-zinc-900 rounded-2xl p-8 border border-zinc-800 hover:border-gold-500/50 transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="text-gold-500 text-3xl mb-4"><i class="fa-solid fa-building"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-2">Eventos Corporativos</h3>
+                        <p class="text-zinc-400 text-sm mb-6">Fotografía profesional para conferencias y empresas.</p>
+                        <div class="text-3xl font-extrabold text-white mb-6">350€ <span class="text-xs text-zinc-500 font-normal">/ media jornada</span></div>
+                        <ul class="space-y-3 text-sm text-zinc-300 mb-8">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Hasta 4 horas de evento</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Entrega rápida (48 horas)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Derechos de uso comercial</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Formato listo para prensa y RRSS</li>
+                        </ul>
+                    </div>
+                    <a href="#contacto" class="w-full text-center py-3 bg-zinc-800 hover:bg-gold-500 hover:text-zinc-950 font-semibold rounded-xl transition-colors">Reservar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN SOBRE MÍ -->
+    <section id="sobre-mi" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="relative">
+                <!-- Sustituye con tu foto personal: "images/perfil.jpg" -->
+                <img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?auto=format&fit=crop&w=800&q=80" alt="Fotógrafo" class="rounded-2xl shadow-2xl w-full h-[450px] object-cover">
+                <div class="absolute -bottom-6 -right-6 bg-gold-500 text-zinc-950 p-6 rounded-2xl font-bold hidden sm:block">
+                    <p class="text-3xl">8+</p>
+                    <p class="text-xs uppercase tracking-wider">Años de experiencia</p>
+                </div>
+            </div>
+
+            <div>
+                <span class="text-gold-500 font-medium tracking-widest uppercase text-sm mb-2 block">Conóceme</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-zinc-100 mb-6">Detrás del Lente</h2>
+                <p class="text-zinc-400 mb-4 leading-relaxed">¡Hola! Soy el fotógrafo principal detrás de Lumina Studio. Mi pasión es transformar la realidad en imágenes artísticas que transmitan emoción y autenticidad.</p>
+                <p class="text-zinc-400 mb-8 leading-relaxed">Con más de 8 años de trayectoria en el sector digital y editorial, me especializo en utilizar iluminación natural y técnicas de retoque digital respetuosas para contar historias únicas.</p>
+                
+                <div class="grid grid-cols-2 gap-4 border-t border-zinc-800 pt-6">
+                    <div>
+                        <h4 class="text-white font-bold text-lg">100+</h4>
+                        <p class="text-zinc-500 text-sm">Eventos Cubiertos</p>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold text-lg">100%</h4>
+                        <p class="text-zinc-500 text-sm">Clientes Satisfechos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN TESTIMONIOS -->
+    <section class="py-20 bg-zinc-900/30 border-t border-zinc-800/60 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-zinc-100 mb-3">Lo Que Dicen Mis Clientes</h2>
+                <div class="w-16 h-1 bg-gold-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+                    <div class="flex text-gold-500 text-sm mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-zinc-300 text-sm mb-6 italic">"Un trabajo increíble en nuestra boda. Capturó momentos espontáneos que ni siquiera recordábamos. ¡Totalmente recomendable!"</p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center font-bold text-gold-500">M</div>
+                        <div>
+                            <h4 class="text-white font-semibold text-sm">María & Carlos</h4>
+                            <p class="text-zinc-500 text-xs">Bodas</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+                    <div class="flex text-gold-500 text-sm mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-zinc-300 text-sm mb-6 italic">"Las fotos para mi marca personal quedaron espectaculares. El ambiente durante la sesión fue muy relajado y profesional."</p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center font-bold text-gold-500">J</div>
+                        <div>
+                            <h4 class="text-white font-semibold text-sm">Javier Gómez</h4>
+                            <p class="text-zinc-500 text-xs">Retrato Corporativo</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+                    <div class="flex text-gold-500 text-sm mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-zinc-300 text-sm mb-6 italic">"La velocidad de entrega y la calidad de las fotos para nuestro evento de empresa superaron todas las expectativas."</p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center font-bold text-gold-500">L</div>
+                        <div>
+                            <h4 class="text-white font-semibold text-sm">Laura Fernández</h4>
+                            <p class="text-zinc-500 text-xs">Evento Comercial</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CONTACTO -->
+    <section id="contacto" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-zinc-100 mb-3">Hablemos de tu Proyecto</h2>
+                <div class="w-16 h-1 bg-gold-500 rounded-full mb-6"></div>
+                <p class="text-zinc-400 mb-8">¿Tienes una fecha en mente o quieres solicitar un presupuesto personalizado? Completa el formulario o contáctame directamente.</p>
+                
+                <div class="space-y-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-zinc-900 rounded-full flex items-center justify-center text-gold-500 border border-zinc-800">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-zinc-500 uppercase font-semibold">Email</p>
+                            <p class="text-zinc-200 font-medium">contacto@luminastudio.com</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-zinc-900 rounded-full flex items-center justify-center text-gold-500 border border-zinc-800">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-zinc-500 uppercase font-semibold">Teléfono / WhatsApp</p>
+                            <p class="text-zinc-200 font-medium">+34 600 000 000</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-zinc-900 rounded-full flex items-center justify-center text-gold-500 border border-zinc-800">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-zinc-500 uppercase font-semibold">Ubicación</p>
+                            <p class="text-zinc-200 font-medium">Granada, España (Disponible para viajes)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulario -->
+            <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800">
+                <form id="contact-form" onsubmit="handleFormSubmit(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-zinc-300 mb-1">Nombre Completo</label>
+                            <input type="text" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-zinc-100 focus:outline-none focus:border-gold-500 transition-colors" placeholder="Tu nombre">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-zinc-300 mb-1">Correo Electrónico</label>
+                            <input type="email" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-zinc-100 focus:outline-none focus:border-gold-500 transition-colors" placeholder="tu@email.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-zinc-300 mb-1">Tipo de Servicio</label>
+                            <select class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-zinc-100 focus:outline-none focus:border-gold-500 transition-colors">
+                                <option>Selecciona una opción</option>
+                                <option>Boda</option>
+                                <option>Sesión de Retrato</option>
+                                <option>Evento Corporativo</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-zinc-300 mb-1">Mensaje</label>
+                            <textarea rows="4" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-zinc-100 focus:outline-none focus:border-gold-500 transition-colors" placeholder="Cuéntame sobre la fecha, lugar o detalles..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-gold-500 hover:bg-gold-600 text-zinc-950 font-bold py-3.5 rounded-lg transition-colors">Enviar Mensaje</button>
+                    </div>
+                </form>
+                <!-- Mensaje de confirmación sustituto de alert() -->
+                <div id="form-message" class="hidden mt-4 p-4 bg-emerald-900/50 border border-emerald-500 text-emerald-200 rounded-lg text-center text-sm">
+                    ¡Gracias por tu mensaje! Me pondré en contacto contigo muy pronto.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto bg-zinc-950 border-t border-zinc-900 py-8 px-4 text-center text-zinc-500 text-sm">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <p>&copy; 2026 Lumina Studio. Todos los derechos reservados.</p>
+            </div>
+            <!-- Redes sociales -->
+            <div class="flex space-x-6 text-lg">
+                <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DE IMAGEN AMPLIADA -->
+    <div id="image-modal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-sm" onclick="closeModal()">
+        <div class="relative max-w-4xl w-full max-h-[90vh] flex flex-col items-center" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="absolute -top-10 right-0 text-white hover:text-gold-500 text-2xl font-bold focus:outline-none">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <img id="modal-img" src="" alt="Modal Image" class="max-h-[80vh] w-auto rounded-lg object-contain">
+            <p id="modal-caption" class="text-zinc-300 mt-4 text-center font-medium"></p>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT PARA INTERACTIVIDAD -->
+    <script>
+        // Control Menú Móvil
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Filtrado del Portafolio
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Cambiar estado activo en botones
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-gold-500', 'text-zinc-950');
+                    b.classList.add('bg-zinc-900', 'text-zinc-300');
+                });
+                btn.classList.add('active', 'bg-gold-500', 'text-zinc-950');
+                btn.classList.remove('bg-zinc-900', 'text-zinc-300');
+
+                const filter = btn.getAttribute('data-filter');
+
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.classList.contains(filter)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Control del Modal de Imágenes
+        function openModal(imageSrc, captionText) {
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-img');
+            const modalCaption = document.getElementById('modal-caption');
+
+            modalImg.src = imageSrc;
+            modalCaption.textContent = captionText;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('image-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Manejo del Formulario (sin alert)
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const messageBox = document.getElementById('form-message');
+            messageBox.classList.remove('hidden');
+            document.getElementById('contact-form').reset();
+            
+            setTimeout(() => {
+                messageBox.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
