@@ -1,499 +1,243 @@
 <!DOCTYPE html>
-<html lang="es" class="dark">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DSA Studio | Fotografía Profesional & Digital</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        gold: {
-                            400: '#facc15',
-                            500: '#eab308',
-                            600: '#ca8a04',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Google Fonts & Font Awesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .smooth-scroll { scroll-behavior: smooth; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dos mundos, una cámara: fotografía en tierra y bajo el agua</title>
+<meta name="description" content="Exposición personal de fotografía terrestre y subacuática.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --t:0;                                   /* 0 = superficie, 1 = fondo (lo mueve el scroll) */
+  --bg:color-mix(in srgb,#262d27,#021019 calc(var(--t)*100%));
+  --acc:color-mix(in srgb,#ff8f60,#62d6ea calc(var(--t)*100%));
+  --txt:#eef2ee;
+  --soft:color-mix(in srgb,#eef2ee 68%,transparent);
+  --line:color-mix(in srgb,#eef2ee 16%,transparent);
+  --serif:"Fraunces",Georgia,serif;
+  --sans:"Figtree",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font:400 1.0625rem/1.65 var(--sans);transition:background .3s}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.wrap{width:min(1080px,100% - 2.5rem);margin-inline:auto}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.1}
+h2{font-size:clamp(1.9rem,4.5vw,3rem);margin-bottom:1rem}
+section{padding:6rem 0}
+
+/* barra superior */
+header{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.9rem 1.25rem;background:linear-gradient(var(--bg),transparent)}
+header b{font:italic 400 1.2rem var(--serif)}
+nav{display:flex;gap:1.3rem;font-size:.95rem;overflow-x:auto}
+nav a{text-decoration:none;color:var(--soft);white-space:nowrap}
+nav a:hover{color:var(--acc)}
+
+/* portada */
+#inicio{position:relative;min-height:100svh;display:grid;align-items:end;padding:0;overflow:hidden}
+#inicio .foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
+#inicio::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 4%,transparent 65%)}
+#inicio .wrap{position:relative;z-index:2;padding:0 0 5.5rem}
+h1{font-size:clamp(3rem,10vw,7.5rem);font-weight:300;letter-spacing:-.02em;max-width:11ch}
+h1 i{font-weight:300}
+.lema{margin-top:1.5rem;max-width:34rem;color:var(--soft);font-size:1.2rem}
+.burbujas{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.burbujas span{position:absolute;bottom:-20px;border:1px solid var(--acc);border-radius:50%;opacity:0;animation:sube linear infinite}
+@keyframes sube{10%{opacity:.5}to{transform:translateY(-110vh) translateX(18px);opacity:0}}
+
+/* medidor de profundidad */
+.medidor{position:fixed;right:1rem;top:50%;translate:0 -50%;z-index:15;display:flex;flex-direction:column;align-items:center;gap:.5rem;font-size:.85rem;color:var(--soft)}
+.medidor .riel{position:relative;width:2px;height:38vh;background:var(--line)}
+.medidor .riel i{position:absolute;left:50%;top:calc(var(--t)*100%);translate:-50% -50%;width:11px;height:11px;border-radius:50%;background:var(--acc)}
+.medidor output{font:500 1.05rem var(--serif);color:var(--txt);writing-mode:vertical-rl;rotate:180deg}
+.medidor small{max-width:5.5rem;text-align:center;line-height:1.25}
+
+/* galería */
+.filtros{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.5rem 0 2.5rem}
+.filtros button{font:inherit;color:var(--soft);background:none;border:1px solid var(--line);border-radius:99px;padding:.4rem 1.1rem;cursor:pointer}
+.filtros button[aria-pressed=true]{color:var(--bg);background:var(--acc);border-color:var(--acc)}
+.mosaico{columns:3 270px;column-gap:1.1rem}
+.mosaico button{display:block;width:100%;margin:0 0 1.1rem;padding:0;border:0;background:#0003;cursor:zoom-in;position:relative;break-inside:avoid;overflow:hidden}
+.mosaico img{width:100%;height:auto;transition:transform .5s}
+.mosaico button:hover img{transform:scale(1.04)}
+.mosaico figcaption{position:absolute;inset:auto 0 0 0;padding:2rem .9rem .7rem;text-align:left;font:italic 400 1.05rem var(--serif);background:linear-gradient(transparent,#000b);opacity:0;transition:opacity .25s}
+.mosaico button:hover figcaption,.mosaico button:focus-visible figcaption{opacity:1}
+.falta{padding:2rem 1rem;border:1px dashed var(--line);color:var(--soft);font-size:.9rem;word-break:break-all}
+
+/* cuaderno */
+.notas{display:grid;gap:3rem;margin-top:3rem}
+.nota{display:grid;grid-template-columns:7rem 1fr;gap:1.5rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.nota .prof{font:300 2.6rem/1 var(--serif);color:var(--acc)}
+.nota h3{font-size:1.5rem;margin-bottom:.4rem}
+.nota p{color:var(--soft);max-width:60ch}
+
+/* sobre mí */
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
+.dos p{color:var(--soft);margin-top:1rem;max-width:52ch}
+.dos img{width:100%;aspect-ratio:4/5;object-fit:cover}
+
+footer{padding:4rem 0 5rem;border-top:1px solid var(--line);color:var(--soft)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
+
+/* visor */
+dialog{margin:auto;max-width:min(94vw,1100px);background:none;border:0;color:var(--txt);overflow:visible}
+dialog::backdrop{background:#000d}
+dialog img{max-height:80vh;width:auto;margin-inline:auto}
+dialog p{text-align:center;margin-top:.8rem;font:italic 1.1rem var(--serif)}
+.visor-btn{position:fixed;top:50%;translate:0 -50%;font-size:2rem;background:none;border:0;color:#fff;cursor:pointer;padding:1rem}
+.visor-btn.ant{left:.5rem}.visor-btn.sig{right:.5rem}.visor-btn.cer{top:1rem;right:1rem;translate:0 0}
+
+@media(max-width:760px){
+  .dos{grid-template-columns:1fr}
+  .nota{grid-template-columns:1fr;gap:.4rem}
+  .medidor{right:.4rem}.medidor .riel,.medidor small{display:none}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.burbujas{display:none}*{transition:none!important}}
+</style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 smooth-scroll flex flex-col min-h-screen">
+<body>
 
-    <!-- NAV BAR -->
-    <nav class="fixed top-0 left-0 w-full bg-zinc-950/80 backdrop-blur-md z-40 border-b border-zinc-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-3">
-                    <i class="fa-solid me-2 fa-camera-retro text-gold-500 text-2xl"></i>
-                    <span class="font-bold text-xl tracking-wider uppercase text-zinc-100">Lumina<span class="text-gold-500">Studio</span></span>
-                </div>
-                <!-- Menú Desktop -->
-                <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
-                    <a href="#inicio" class="hover:text-gold-500 transition-colors">Inicio</a>
-                    <a href="#portafolio" class="hover:text-gold-500 transition-colors">Portafolio</a>
-                    <a href="#servicios" class="hover:text-gold-500 transition-colors">Servicios</a>
-                    <a href="#sobre-mi" class="hover:text-gold-500 transition-colors">Sobre Mí</a>
-                    <a href="#contacto" class="bg-gold-500 hover:bg-gold-600 text-zinc-950 font-semibold px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105">Contacto</a>
-                </div>
-                <!-- Botón Menú Móvil -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-zinc-300 hover:text-white focus:outline-none p-2">
-                        <i class="fa-solid fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!-- Menú Desplegable Móvil -->
-        <div id="mobile-menu" class="hidden md:hidden bg-zinc-900 border-b border-zinc-800 px-4 pt-2 pb-4 space-y-3 text-center">
-            <a href="#inicio" class="block py-2 hover:text-gold-500 transition-colors mobile-link">Inicio</a>
-            <a href="#portafolio" class="block py-2 hover:text-gold-500 transition-colors mobile-link">Portafolio</a>
-            <a href="#servicios" class="block py-2 hover:text-gold-500 transition-colors mobile-link">Servicios</a>
-            <a href="#sobre-mi" class="block py-2 hover:text-gold-500 transition-colors mobile-link">Sobre Mí</a>
-            <a href="#contacto" class="block bg-gold-500 text-zinc-950 font-semibold py-2 rounded-full mobile-link">Contacto</a>
-        </div>
-    </nav>
+<header>
+  <b>David Sanchez</b>
+  <nav aria-label="Principal">
+    <a href="#galeria">Fotos</a><a href="#cuaderno">Cuaderno</a><a href="#quien">Quién</a><a href="#contacto">Contacto</a>
+  </nav>
+</header>
 
-    <!-- SECCIÓN HERO / INICIO -->
-    <section id="inicio" class="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
-        <!-- Imagen de fondo con overlay -->
-        <div class="absolute inset-0 z-0">
-            <!-- REEMPLAZA ESTA URL CON LA RUTA DE TU FOTO EN GITHUB: eg. "images/hero-bg.jpg" -->
-            <img src=".fotos/dondyce.jpg">
-            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/60 to-transparent"></div>
-        </div>
+<div class="burbujas" id="burbujas" aria-hidden="true"></div>
 
-        <div class="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-            <span class="text-gold-500 font-medium tracking-widest uppercase text-sm mb-3 block">Estudio de Fotografía Profesional</span>
-            <h1 class="text-4xl sm:text-6xl font-extrabold text-zinc-100 tracking-tight mb-6">Capturando momentos mágicos e inolvidables</h1>
-            <p class="text-lg sm:text-xl text-zinc-400 mb-8 max-w-2xl mx-auto font-light">Especializados en fotografía de eventos, retratos creativos, bodas singulares y paisajes naturales de alta definición.</p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#portafolio" class="bg-gold-500 hover:bg-gold-600 text-zinc-950 font-bold px-8 py-3.5 rounded-full shadow-lg transition-all transform hover:-translate-y-0.5">Ver Portafolio</a>
-                <a href="#contacto" class="border border-zinc-700 hover:border-gold-500 text-zinc-200 hover:text-gold-500 font-semibold px-8 py-3.5 rounded-full transition-all">Reserva una Sesión</a>
-            </div>
-        </div>
-    </section>
+<aside class="medidor" aria-hidden="true">
+  <div class="riel"><i></i></div>
+  <output id="metros">0 m</output>
+  <small id="zona">superficie</small>
+</aside>
 
-    <!-- SECCIÓN PORTAFOLIO CON FILTROS -->
-    <section id="portafolio" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl sm:text-4xl font-bold text-zinc-100 mb-3">Galería de Trabajos</h2>
-            <div class="w-16 h-1 bg-gold-500 mx-auto rounded-full mb-6"></div>
-            <p class="text-zinc-400 max-w-xl mx-auto">Explora nuestras capturas divididas por especialidad. Haz clic en cualquier imagen para verla en pantalla completa.</p>
-            
-            <!-- Botones de Filtro -->
-            <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mt-8">
-                <button class="filter-btn active bg-gold-500 text-zinc-950 px-5 py-2 rounded-full text-sm font-semibold transition-all" data-filter="all">Todos</button>
-                <button class="filter-btn bg-zinc-900 border border-zinc-800 text-zinc-300 hover:border-gold-500 px-5 py-2 rounded-full text-sm font-semibold transition-all" data-filter="bodas">Bodas</button>
-                <button class="filter-btn bg-zinc-900 border border-zinc-800 text-zinc-300 hover:border-gold-500 px-5 py-2 rounded-full text-sm font-semibold transition-all" data-filter="retratos">Retratos</button>
-                <button class="filter-btn bg-zinc-900 border border-zinc-800 text-zinc-300 hover:border-gold-500 px-5 py-2 rounded-full text-sm font-semibold transition-all" data-filter="naturaleza">Naturaleza</button>
-                <button class="filter-btn bg-zinc-900 border border-zinc-800 text-zinc-300 hover:border-gold-500 px-5 py-2 rounded-full text-sm font-semibold transition-all" data-filter="eventos">Eventos</button>
-            </div>
-        </div>
+<main>
+<section id="inicio">
+  <img class="foto" src="fotos/dondyce.jpg" alt="" onerror="this.remove()">
+  <div class="wrap">
+    <h1>Dos mundos, <i>una cámara</i></h1>
+    <p class="lema">Fotografío lo que veo caminando y lo que veo flotando. Esta página es mi cuaderno de ambas cosas, y crece cada vez que subo una foto nueva.</p>
+  </div>
+</section>
 
-        <!-- Grid de Galería -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid">
-            
-            <!-- ITEM 1: BODAS -->
-            <!-- Sustituye src con tu propia imagen: "images/bodas-1.jpg" -->
-            <div class="gallery-item bodas relative group overflow-hidden rounded-xl bg-zinc-900 cursor-pointer aspect-square" onclick="openModal('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80', 'Fotografía de Bodas')">
-                <img src="./fotos/Roscos.jpg">
-                <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <span class="text-gold-500 text-xs font-semibold uppercase tracking-wider">Bodas</span>
-                    <h3 class="text-white text-lg font-bold">Enlace Inolvidable</h3>
-                </div>
-            </div>
-
-            <!-- ITEM 2: RETRATOS -->
-            <div class="gallery-item retratos relative group overflow-hidden rounded-xl bg-zinc-900 cursor-pointer aspect-square" onclick="openModal('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80', 'Retrato Creativo')">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Retrato" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <span class="text-gold-500 text-xs font-semibold uppercase tracking-wider">Retratos</span>
-                    <h3 class="text-white text-lg font-bold">Expresión Urbana</h3>
-                </div>
-            </div>
-
-            <!-- ITEM 3: NATURALEZA -->
-            <div class="gallery-item naturaleza relative group overflow-hidden rounded-xl bg-zinc-900 cursor-pointer aspect-square" onclick="openModal('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80', 'Fotografía de Paisajes')">
-                <img src="./fotos/fryddysoloT.jpg">
-                <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <span class="text-gold-500 text-xs font-semibold uppercase tracking-wider">Naturaleza</span>
-                    <h3 class="text-white text-lg font-bold">Amanecer en la Montaña</h3>
-                </div>
-            </div>
-
-            <!-- ITEM 4: EVENTOS -->
-            <div class="gallery-item eventos relative group overflow-hidden rounded-xl bg-zinc-900 cursor-pointer aspect-square" onclick="openModal('https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80', 'Eventos Corporativos y Musicales')">
-                <img src="./fotos/dondyce.jpg">
-                <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <span class="text-gold-500 text-xs font-semibold uppercase tracking-wider">Eventos</span>
-                    <h3 class="text-white text-lg font-bold">Concierto en Vivo</h3>
-                </div>
-            </div>
-
-            <!-- ITEM 5: BODAS -->
-            <div class="gallery-item bodas relative group overflow-hidden rounded-xl bg-zinc-900 cursor-pointer aspect-square" onclick="openModal('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=80', 'Detalles de Boda')">
-                <img src="/fotos/Roscos.jpg">
-                <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <span class="text-gold-500 text-xs font-semibold uppercase tracking-wider">Bodas</span>
-                    <h3 class="text-white text-lg font-bold">Detalles de Ceremonia</h3>
-                </div>
-            </div>
-
-            <!-- ITEM 6: RETRATOS -->
-            <div class="gallery-item retratos relative group overflow-hidden rounded-xl bg-zinc-900 cursor-pointer aspect-square" onclick="openModal('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=80', 'Retrato Estudio')">
-                <img src="/fotos/fryddysoloT.jpg">
-                <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <span class="text-gold-500 text-xs font-semibold uppercase tracking-wider">Retratos</span>
-                    <h3 class="text-white text-lg font-bold">Sesión en Estudio</h3>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- SECCIÓN SERVICIOS Y TARIFAS -->
-    <section id="servicios" class="py-20 bg-zinc-900/50 border-y border-zinc-800/80 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-bold text-zinc-100 mb-3">Servicios & Tarifas</h2>
-                <div class="w-16 h-1 bg-gold-500 mx-auto rounded-full mb-6"></div>
-                <p class="text-zinc-400 max-w-xl mx-auto">Paquetes adaptados a tus necesidades con la máxima calidad y entrega digital profesional.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Tarjeta Servicio 1 -->
-                <div class="bg-zinc-900 rounded-2xl p-8 border border-zinc-800 hover:border-gold-500/50 transition-all duration-300 flex flex-col justify-between">
-                    <div>
-                        <div class="text-gold-500 text-3xl mb-4"><i class="fa-solid fa-user font-bold"></i></div>
-                        <h3 class="text-xl font-bold text-white mb-2">Sesión Retrato</h3>
-                        <p class="text-zinc-400 text-sm mb-6">Ideal para marcas personales, modelos o recuerdos individuales.</p>
-                        <div class="text-3xl font-extrabold text-white mb-6">150€ <span class="text-xs text-zinc-500 font-normal">/ sesión</span></div>
-                        <ul class="space-y-3 text-sm text-zinc-300 mb-8">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> 1.5 horas de sesión</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> 15 fotos editadas en alta res</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Galería privada online</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Asesoramiento de vestuario</li>
-                        </ul>
-                    </div>
-                    <a href="#contacto" class="w-full text-center py-3 bg-zinc-800 hover:bg-gold-500 hover:text-zinc-950 font-semibold rounded-xl transition-colors">Reservar</a>
-                </div>
-
-                <!-- Tarjeta Servicio 2 (Destacado) -->
-                <div class="bg-zinc-900 rounded-2xl p-8 border-2 border-gold-500 relative flex flex-col justify-between shadow-2xl transform md:-translate-y-2">
-                    <span class="absolute -top-3 right-6 bg-gold-500 text-zinc-950 font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">Más Popular</span>
-                    <div>
-                        <div class="text-gold-500 text-3xl mb-4"><i class="fa-solid fa-heart"></i></div>
-                        <h3 class="text-xl font-bold text-white mb-2">Cobertura Bodas</h3>
-                        <p class="text-zinc-400 text-sm mb-6">Reportaje completo para inmortalizar el día más importante.</p>
-                        <div class="text-3xl font-extrabold text-white mb-6">850€ <span class="text-xs text-zinc-500 font-normal">/ evento</span></div>
-                        <ul class="space-y-3 text-sm text-zinc-300 mb-8">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Cobertura completa (día entero)</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> +300 fotos editadas</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Álbum impreso de alta calidad</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Entrega en pendrive de madera</li>
-                        </ul>
-                    </div>
-                    <a href="#contacto" class="w-full text-center py-3 bg-gold-500 hover:bg-gold-600 text-zinc-950 font-bold rounded-xl transition-colors">Reservar Ahora</a>
-                </div>
-
-                <!-- Tarjeta Servicio 3 -->
-                <div class="bg-zinc-900 rounded-2xl p-8 border border-zinc-800 hover:border-gold-500/50 transition-all duration-300 flex flex-col justify-between">
-                    <div>
-                        <div class="text-gold-500 text-3xl mb-4"><i class="fa-solid fa-building"></i></div>
-                        <h3 class="text-xl font-bold text-white mb-2">Eventos Corporativos</h3>
-                        <p class="text-zinc-400 text-sm mb-6">Fotografía profesional para conferencias y empresas.</p>
-                        <div class="text-3xl font-extrabold text-white mb-6">350€ <span class="text-xs text-zinc-500 font-normal">/ media jornada</span></div>
-                        <ul class="space-y-3 text-sm text-zinc-300 mb-8">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Hasta 4 horas de evento</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Entrega rápida (48 horas)</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Derechos de uso comercial</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold-500 mr-2"></i> Formato listo para prensa y RRSS</li>
-                        </ul>
-                    </div>
-                    <a href="#contacto" class="w-full text-center py-3 bg-zinc-800 hover:bg-gold-500 hover:text-zinc-950 font-semibold rounded-xl transition-colors">Reservar</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECCIÓN SOBRE MÍ -->
-    <section id="sobre-mi" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="relative">
-                <!-- Sustituye con tu foto personal: "images/perfil.jpg" -->
-                <img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?auto=format&fit=crop&w=800&q=80" alt="Fotógrafo" class="rounded-2xl shadow-2xl w-full h-[450px] object-cover">
-                <div class="absolute -bottom-6 -right-6 bg-gold-500 text-zinc-950 p-6 rounded-2xl font-bold hidden sm:block">
-                    <p class="text-3xl">8+</p>
-                    <p class="text-xs uppercase tracking-wider">Años de experiencia</p>
-                </div>
-            </div>
-
-            <div>
-                <span class="text-gold-500 font-medium tracking-widest uppercase text-sm mb-2 block">Conóceme</span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-zinc-100 mb-6">Detrás del Lente</h2>
-                <p class="text-zinc-400 mb-4 leading-relaxed">¡Hola! Soy el fotógrafo principal detrás de Lumina Studio. Mi pasión es transformar la realidad en imágenes artísticas que transmitan emoción y autenticidad.</p>
-                <p class="text-zinc-400 mb-8 leading-relaxed">Con más de 8 años de trayectoria en el sector digital y editorial, me especializo en utilizar iluminación natural y técnicas de retoque digital respetuosas para contar historias únicas.</p>
-                
-                <div class="grid grid-cols-2 gap-4 border-t border-zinc-800 pt-6">
-                    <div>
-                        <h4 class="text-white font-bold text-lg">100+</h4>
-                        <p class="text-zinc-500 text-sm">Eventos Cubiertos</p>
-                    </div>
-                    <div>
-                        <h4 class="text-white font-bold text-lg">100%</h4>
-                        <p class="text-zinc-500 text-sm">Clientes Satisfechos</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECCIÓN TESTIMONIOS -->
-    <section class="py-20 bg-zinc-900/30 border-t border-zinc-800/60 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-bold text-zinc-100 mb-3">Lo Que Dicen Mis Clientes</h2>
-                <div class="w-16 h-1 bg-gold-500 mx-auto rounded-full"></div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
-                    <div class="flex text-gold-500 text-sm mb-4">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="text-zinc-300 text-sm mb-6 italic">"Un trabajo increíble en nuestra boda. Capturó momentos espontáneos que ni siquiera recordábamos. ¡Totalmente recomendable!"</p>
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center font-bold text-gold-500">M</div>
-                        <div>
-                            <h4 class="text-white font-semibold text-sm">María & Carlos</h4>
-                            <p class="text-zinc-500 text-xs">Bodas</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
-                    <div class="flex text-gold-500 text-sm mb-4">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="text-zinc-300 text-sm mb-6 italic">"Las fotos para mi marca personal quedaron espectaculares. El ambiente durante la sesión fue muy relajado y profesional."</p>
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center font-bold text-gold-500">J</div>
-                        <div>
-                            <h4 class="text-white font-semibold text-sm">Javier Gómez</h4>
-                            <p class="text-zinc-500 text-xs">Retrato Corporativo</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
-                    <div class="flex text-gold-500 text-sm mb-4">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="text-zinc-300 text-sm mb-6 italic">"La velocidad de entrega y la calidad de las fotos para nuestro evento de empresa superaron todas las expectativas."</p>
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center font-bold text-gold-500">L</div>
-                        <div>
-                            <h4 class="text-white font-semibold text-sm">Laura Fernández</h4>
-                            <p class="text-zinc-500 text-xs">Evento Comercial</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECCIÓN CONTACTO -->
-    <section id="contacto" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div>
-                <h2 class="text-3xl sm:text-4xl font-bold text-zinc-100 mb-3">Hablemos de tu Proyecto</h2>
-                <div class="w-16 h-1 bg-gold-500 rounded-full mb-6"></div>
-                <p class="text-zinc-400 mb-8">¿Tienes una fecha en mente o quieres solicitar un presupuesto personalizado? Completa el formulario o contáctame directamente.</p>
-                
-                <div class="space-y-6">
-                    <div class="flex items-center space-x-4">
-                        <div class="w-12 h-12 bg-zinc-900 rounded-full flex items-center justify-center text-gold-500 border border-zinc-800">
-                            <i class="fa-solid fa-envelope"></i>
-                        </div>
-                        <div>
-                            <p class="text-xs text-zinc-500 uppercase font-semibold">Email</p>
-                            <p class="text-zinc-200 font-medium">contacto@luminastudio.com</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center space-x-4">
-                        <div class="w-12 h-12 bg-zinc-900 rounded-full flex items-center justify-center text-gold-500 border border-zinc-800">
-                            <i class="fa-solid fa-phone"></i>
-                        </div>
-                        <div>
-                            <p class="text-xs text-zinc-500 uppercase font-semibold">Teléfono / WhatsApp</p>
-                            <p class="text-zinc-200 font-medium">+34 600 000 000</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center space-x-4">
-                        <div class="w-12 h-12 bg-zinc-900 rounded-full flex items-center justify-center text-gold-500 border border-zinc-800">
-                            <i class="fa-solid fa-location-dot"></i>
-                        </div>
-                        <div>
-                            <p class="text-xs text-zinc-500 uppercase font-semibold">Ubicación</p>
-                            <p class="text-zinc-200 font-medium">Granada, España (Disponible para viajes)</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Formulario -->
-            <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800">
-                <form id="contact-form" onsubmit="handleFormSubmit(event)">
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-zinc-300 mb-1">Nombre Completo</label>
-                            <input type="text" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-zinc-100 focus:outline-none focus:border-gold-500 transition-colors" placeholder="Tu nombre">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-zinc-300 mb-1">Correo Electrónico</label>
-                            <input type="email" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-zinc-100 focus:outline-none focus:border-gold-500 transition-colors" placeholder="tu@email.com">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-zinc-300 mb-1">Tipo de Servicio</label>
-                            <select class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-zinc-100 focus:outline-none focus:border-gold-500 transition-colors">
-                                <option>Selecciona una opción</option>
-                                <option>Boda</option>
-                                <option>Sesión de Retrato</option>
-                                <option>Evento Corporativo</option>
-                                <option>Otro</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-zinc-300 mb-1">Mensaje</label>
-                            <textarea rows="4" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-zinc-100 focus:outline-none focus:border-gold-500 transition-colors" placeholder="Cuéntame sobre la fecha, lugar o detalles..."></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-gold-500 hover:bg-gold-600 text-zinc-950 font-bold py-3.5 rounded-lg transition-colors">Enviar Mensaje</button>
-                    </div>
-                </form>
-                <!-- Mensaje de confirmación sustituto de alert() -->
-                <div id="form-message" class="hidden mt-4 p-4 bg-emerald-900/50 border border-emerald-500 text-emerald-200 rounded-lg text-center text-sm">
-                    ¡Gracias por tu mensaje! Me pondré en contacto contigo muy pronto.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="mt-auto bg-zinc-950 border-t border-zinc-900 py-8 px-4 text-center text-zinc-500 text-sm">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div>
-                <p>&copy; 2026 Lumina Studio. Todos los derechos reservados.</p>
-            </div>
-            <!-- Redes sociales -->
-            <div class="flex space-x-6 text-lg">
-                <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- MODAL DE IMAGEN AMPLIADA -->
-    <div id="image-modal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-sm" onclick="closeModal()">
-        <div class="relative max-w-4xl w-full max-h-[90vh] flex flex-col items-center" onclick="event.stopPropagation()">
-            <button onclick="closeModal()" class="absolute -top-10 right-0 text-white hover:text-gold-500 text-2xl font-bold focus:outline-none">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <img id="modal-img" src="" alt="Modal Image" class="max-h-[80vh] w-auto rounded-lg object-contain">
-            <p id="modal-caption" class="text-zinc-300 mt-4 text-center font-medium"></p>
-        </div>
+<section id="galeria">
+  <div class="wrap">
+    <h2>Lo que he ido guardando</h2>
+    <p class="lema" id="cuenta"></p>
+    <div class="filtros" role="group" aria-label="Filtrar fotos">
+      <button aria-pressed="true" data-f="todas">Todas</button>
+      <button aria-pressed="false" data-f="tierra">En tierra</button>
+      <button aria-pressed="false" data-f="mar">Bajo el agua</button>
     </div>
+    <div class="mosaico" id="mosaico"></div>
+  </div>
+</section>
 
-    <!-- JAVASCRIPT PARA INTERACTIVIDAD -->
-    <script>
-        // Control Menú Móvil
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
+<section id="cuaderno">
+  <div class="wrap">
+    <h2>Cuaderno de inmersión</h2>
+    <p class="lema">Cosas que me han enseñado la cámara y el agua, apuntadas según bajo.</p>
+    <div class="notas">
+      <article class="nota"><div class="prof">5 m</div><div><h3>El rojo se va primero</h3><p>Pocos metros bajo la superficie el agua ya se ha comido los rojos y los naranjas. Por eso una misma escena parece otra con luz de apoyo, y por eso me obsesiona el color.</p></div></article>
+      <article class="nota"><div class="prof">12 m</div><div><h3>Primero flotar, luego disparar</h3><p>Sin buena flotabilidad no hay foto nítida ni arrecife intacto. Aquí la técnica fotográfica empieza por controlar el propio cuerpo.</p></div></article>
+      <article class="nota"><div class="prof">0 m</div><div><h3>En tierra, esperar la luz</h3><p>Fuera del agua mi trabajo es casi el contrario: quedarme quieto y dejar que la luz llegue donde yo quiero.</p></div></article>
+    </div>
+  </div>
+</section>
 
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+<section id="quien">
+  <div class="wrap dos">
+    <div>
+      <h2>Quién hay detrás</h2>
+      <p>Soy aficionado a la fotografía, la de tierra y la subacuática. No vivo de ello ni quiero: es mi manera de mirar con calma.</p>
+      <p>Escribe aquí dos o tres líneas tuyas: cuándo empezaste a bucear, qué cámara usas, qué te gustaría fotografiar algún día.</p>
+    </div>
+    <img src="fotos/perfil.jpg" alt="Retrato del autor" onerror="this.remove()">
+  </div>
+</section>
+</main>
 
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
+<footer id="contacto">
+  <div class="wrap">
+    <p>Si quieres comentar una foto: <a href="mailto:david14sa@gmail.com">david14sa@gmail.com</a></p>
+    <p>Hecho a mano con HTML y CSS, alojado en GitHub.</p>
+  </div>
+</footer>
 
-        // Filtrado del Portafolio
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const galleryItems = document.querySelectorAll('.gallery-item');
+<dialog id="visor" aria-label="Foto ampliada">
+  <button class="visor-btn cer" aria-label="Cerrar" id="cer">&times;</button>
+  <button class="visor-btn ant" aria-label="Anterior" id="ant">&lsaquo;</button>
+  <button class="visor-btn sig" aria-label="Siguiente" id="sig">&rsaquo;</button>
+  <img id="vimg" alt=""><p id="vpie"></p>
+</dialog>
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Cambiar estado activo en botones
-                filterBtns.forEach(b => {
-                    b.classList.remove('active', 'bg-gold-500', 'text-zinc-950');
-                    b.classList.add('bg-zinc-900', 'text-zinc-300');
-                });
-                btn.classList.add('active', 'bg-gold-500', 'text-zinc-950');
-                btn.classList.remove('bg-zinc-900', 'text-zinc-300');
+<script>
+/* ===== AÑADE AQUÍ TUS FOTOS: una línea por foto =====
+   cat: 'mar' (bajo el agua) o 'tierra'. La ruta es relativa, sin "/" delante.
+   En GitHub Pages las mayúsculas importan: Roscos.jpg no es roscos.jpg */
+const FOTOS=[
+  {src:'fotos/dondyce.jpg',      cat:'mar',   titulo:'Dondyce'},
+  {src:'fotos/fryddysoloT.jpg',  cat:'mar',   titulo:'Fryddy, solo T'},
+  {src:'fotos/Roscos.jpg',       cat:'tierra',titulo:'Roscos'},
+];
 
-                const filter = btn.getAttribute('data-filter');
+const $=s=>document.querySelector(s);
+let visibles=[],actual=0;
 
-                galleryItems.forEach(item => {
-                    if (filter === 'all' || item.classList.contains(filter)) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
+function pinta(f){
+  const m=$('#mosaico');m.innerHTML='';
+  visibles=FOTOS.filter(x=>f==='todas'||x.cat===f);
+  visibles.forEach((x,i)=>{
+    const b=document.createElement('button');
+    b.innerHTML=`<img loading="lazy" src="${x.src}" alt="${x.titulo}"><figcaption>${x.titulo}</figcaption>`;
+    b.querySelector('img').onerror=()=>{b.outerHTML=`<div class="falta">No encuentro <b>${x.src}</b>. Revisa la ruta y las mayúsculas.</div>`};
+    b.onclick=()=>abre(i);
+    m.append(b);
+  });
+}
+function abre(i){
+  actual=(i+visibles.length)%visibles.length;
+  const x=visibles[actual];
+  $('#vimg').src=x.src;$('#vimg').alt=x.titulo;$('#vpie').textContent=x.titulo;
+  if(!$('#visor').open)$('#visor').showModal();
+}
+$('#cer').onclick=()=>$('#visor').close();
+$('#ant').onclick=()=>abre(actual-1);
+$('#sig').onclick=()=>abre(actual+1);
+$('#visor').addEventListener('click',e=>{if(e.target.id==='visor')e.target.close()});
+document.addEventListener('keydown',e=>{if(!$('#visor').open)return;if(e.key==='ArrowLeft')abre(actual-1);if(e.key==='ArrowRight')abre(actual+1)});
 
-        // Control del Modal de Imágenes
-        function openModal(imageSrc, captionText) {
-            const modal = document.getElementById('image-modal');
-            const modalImg = document.getElementById('modal-img');
-            const modalCaption = document.getElementById('modal-caption');
+document.querySelectorAll('.filtros button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.filtros button').forEach(o=>o.setAttribute('aria-pressed',o===b));
+  pinta(b.dataset.f);
+});
+$('#cuenta').textContent=FOTOS.length===1?'Una fotografía por ahora.':`${FOTOS.length} fotografías por ahora.`;
+pinta('todas');
 
-            modalImg.src = imageSrc;
-            modalCaption.textContent = captionText;
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
+/* profundidad: el scroll es un descenso */
+const zonas=[[0,'superficie'],[3,'aún hay rojo'],[10,'todo vira al azul'],[20,'silencio']];
+function profundidad(){
+  const max=document.documentElement.scrollHeight-innerHeight;
+  const t=max>0?Math.min(1,scrollY/max):0;
+  document.documentElement.style.setProperty('--t',t.toFixed(3));
+  const m=Math.round(t*30);
+  $('#metros').textContent=m+' m';
+  $('#zona').textContent=zonas.filter(z=>m>=z[0]).pop()[1];
+}
+addEventListener('scroll',profundidad,{passive:true});profundidad();
 
-        function closeModal() {
-            const modal = document.getElementById('image-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        // Manejo del Formulario (sin alert)
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            const messageBox = document.getElementById('form-message');
-            messageBox.classList.remove('hidden');
-            document.getElementById('contact-form').reset();
-            
-            setTimeout(() => {
-                messageBox.classList.add('hidden');
-            }, 5000);
-        }
-    </script>
+/* burbujas */
+const cont=$('#burbujas');
+for(let i=0;i<14;i++){
+  const s=document.createElement('span'),d=4+Math.random()*12;
+  s.style.cssText=`left:${Math.random()*100}%;width:${d}px;height:${d}px;animation-duration:${9+Math.random()*10}s;animation-delay:${-Math.random()*15}s`;
+  cont.append(s);
+}
+</script>
 </body>
 </html>
