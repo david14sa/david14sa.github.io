@@ -83,13 +83,47 @@ h1 i{font-weight:300}
 footer{padding:4rem 0 5rem;border-top:1px solid var(--line);color:var(--soft)}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
 
-/* visor pantalla completa */
-dialog{margin:auto;max-width:100vw;max-height:100vh;width:100vw;height:100vh;background:#000e;border:0;color:var(--txt);overflow:hidden;display:none;place-items:center;padding:2rem}
-dialog[open]{display:grid}
-dialog::backdrop{background:#000e}
-dialog img{max-height:85vh;max-width:92vw;width:auto;height:auto;object-fit:contain;box-shadow:0 12px 40px #000}
-dialog p{position:fixed;bottom:1.2rem;left:0;right:0;text-align:center;font:italic 1.2rem var(--serif);pointer-events:none}
-.visor-btn{position:fixed;top:50%;translate:0 -50%;font-size:2.5rem;background:none;border:0;color:#fff;cursor:pointer;padding:1.2rem;z-index:30}
+/* visor pantalla completa (sin bloqueo de hover) */
+.visor-full{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:rgba(0,0,0,.92);
+  display:grid;
+  place-items:center;
+  padding:2rem;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .25s ease;
+}
+.visor-full.activo{
+  opacity:1;
+  pointer-events:auto;
+}
+.visor-full img{
+  max-height:86vh;
+  max-width:92vw;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  box-shadow:0 15px 50px #000;
+  transform:scale(.96);
+  transition:transform .25s ease;
+}
+.visor-full.activo img{
+  transform:scale(1);
+}
+.visor-full p{
+  position:fixed;
+  bottom:1.2rem;
+  left:0;
+  right:0;
+  text-align:center;
+  font:italic 1.25rem var(--serif);
+  color:var(--txt);
+  pointer-events:none;
+}
+.visor-btn{position:fixed;top:50%;translate:0 -50%;font-size:2.5rem;background:none;border:0;color:#fff;cursor:pointer;padding:1.2rem;z-index:110}
 .visor-btn:hover{color:var(--acc)}
 .visor-btn.ant{left:.5rem}.visor-btn.sig{right:.5rem}.visor-btn.cer{top:1rem;right:1rem;translate:0 0}
 
@@ -171,12 +205,14 @@ dialog p{position:fixed;bottom:1.2rem;left:0;right:0;text-align:center;font:ital
   </div>
 </footer>
 
-<dialog id="visor" aria-label="Foto ampliada">
+<!-- Visor en pantalla completa -->
+<div id="visor" class="visor-full" aria-label="Foto ampliada" role="dialog">
   <button class="visor-btn cer" aria-label="Cerrar" id="cer">&times;</button>
   <button class="visor-btn ant" aria-label="Anterior" id="ant">&lsaquo;</button>
   <button class="visor-btn sig" aria-label="Siguiente" id="sig">&rsaquo;</button>
-  <img id="vimg" alt=""><p id="vpie"></p>
-</dialog>
+  <img id="vimg" alt="">
+  <p id="vpie"></p>
+</div>
 
 <script>
 /* ===== AÑADE AQUÍ TUS FOTOS: una línea por foto =====
@@ -198,7 +234,7 @@ const FOTOS=[
 ];
 
 const $=s=>document.querySelector(s);
-let visibles=[],actual=0;
+let visibles=[],actual=0,timerCierre=null;
 
 function pinta(f){
   const m=$('#mosaico');m.innerHTML='';
@@ -208,8 +244,11 @@ function pinta(f){
     b.innerHTML=`<img loading="lazy" src="${x.src}" alt="${x.titulo}"><figcaption>${x.titulo}</figcaption>`;
     b.querySelector('img').onerror=()=>{b.outerHTML=`<div class="falta">No encuentro <b>${x.src}</b>. Revisa la ruta y las mayúsculas.</div>`};
     
-    /* Se despliega en pantalla completa al pasar el puntero por encima o hacer clic */
-    b.addEventListener('mouseenter', () => abre(i));
+    /* Abre automáticamente al pasar el ratón por encima o al hacer clic */
+    b.addEventListener('mouseenter', () => {
+      clearTimeout(timerCierre);
+      abre(i);
+    });
     b.onclick = () => abre(i);
     
     m.append(b);
@@ -220,19 +259,33 @@ function abre(i){
   actual=(i+visibles.length)%visibles.length;
   const x=visibles[actual];
   $('#vimg').src=x.src;$('#vimg').alt=x.titulo;$('#vpie').textContent=x.titulo;
-  if(!$('#visor').open)$('#visor').showModal();
+  $('#visor').classList.add('activo');
 }
 
-$('#cer').onclick=()=>$('#visor').close();
+function cierra(){
+  $('#visor').classList.remove('activo');
+}
+
+$('#cer').onclick=cierra;
 $('#ant').onclick=()=>abre(actual-1);
 $('#sig').onclick=()=>abre(actual+1);
 
-/* Cierra al sacar el ratón de la imagen ampliada o al hacer clic fuera de ella */
+/* Cierra automáticamente al retirar el ratón de la imagen ampliada */
 $('#vimg').addEventListener('mouseleave', () => {
-  if($('#visor').open) $('#visor').close();
+  timerCierre = setTimeout(cierra, 150);
 });
-$('#visor').addEventListener('click',e=>{if(e.target.id==='visor')e.target.close()});
-document.addEventListener('keydown',e=>{if(!$('#visor').open)return;if(e.key==='ArrowLeft')abre(actual-1);if(e.key==='ArrowRight')abre(actual+1)});
+$('#vimg').addEventListener('mouseenter', () => {
+  clearTimeout(timerCierre);
+});
+
+/* También cierra haciendo clic en el fondo oscuro o pulsando Escape */
+$('#visor').addEventListener('click',e=>{if(e.target.id==='visor')cierra()});
+document.addEventListener('keydown',e=>{
+  if(!$('#visor').classList.contains('activo'))return;
+  if(e.key==='Escape')cierra();
+  if(e.key==='ArrowLeft')abre(actual-1);
+  if(e.key==='ArrowRight')abre(actual+1);
+});
 
 document.querySelectorAll('.filtros button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.filtros button').forEach(o=>o.setAttribute('aria-pressed',o===b));
