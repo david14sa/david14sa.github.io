@@ -131,8 +131,8 @@ dialog p{text-align:center;margin-top:.8rem;font:italic 1.1rem var(--serif)}
     <p class="lema" id="cuenta"></p>
     <div class="filtros" role="group" aria-label="Filtrar fotos">
       <button aria-pressed="true" data-f="todas">Todas</button>
-      <button aria-pressed="false" data-f="tierra">En tierra</button>
-      <button aria-pressed="false" data-f="mar">Bajo el agua</button>
+      <button aria-pressed="false" data-f="tierra">Terrestres</button>
+      <button aria-pressed="false" data-f="mar">Acuáticas</button>
     </div>
     <div class="mosaico" id="mosaico"></div>
   </div>
@@ -178,7 +178,7 @@ dialog p{text-align:center;margin-top:.8rem;font:italic 1.1rem var(--serif)}
 
 <script>
 /* ===== AÑADE AQUÍ TUS FOTOS: una línea por foto =====
-   cat: 'mar' (bajo el agua) o 'tierra'. La ruta es relativa, sin "/" delante.
+   cat: 'mar' (acuáticas) o 'tierra' (terrestres). La ruta es relativa, sin "/" delante.
    En GitHub Pages las mayúsculas importan: .JPG no es .jpg */
 const FOTOS=[
   {src:'fotos/dondyce.jpg',                 cat:'mar',    titulo:'Dondyce'},
@@ -189,7 +189,10 @@ const FOTOS=[
   {src:'fotos/Alhambra desde Albaizyn.JPG', cat:'tierra', titulo:'La Alhambra desde el Albaicín'},
   {src:'fotos/Atardecer5.JPG',              cat:'tierra', titulo:'Vista panorámica al atardecer'},
   {src:'fotos/Catedral 2.JPG',             cat:'tierra', titulo:'Catedral de Granada'},
-  {src:'fotos/Fuente de las batallas.jpg',  cat:'tierra', titulo:'Fuente de las Batallas'}
+  {src:'fotos/Fuente de las batallas.jpg',  cat:'tierra', titulo:'Fuente de las Batallas'},
+  {src:'fotos/puesta de sol1.jpg',          cat:'tierra', titulo:'Puesta de sol'},
+  {src:'fotos/lagocanada.jpg',              cat:'tierra', titulo:'Cabaña junto al lago'},
+  {src:'fotos/lagocanada2.jpg',             cat:'tierra', titulo:'Lago entre montañas'}
 ];
 
 const $=s=>document.querySelector(s);
